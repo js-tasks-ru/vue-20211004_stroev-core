@@ -18,9 +18,6 @@ export default defineComponent({
     },
   },
 
-  // <time datetime="2020-01-01">1 янв. 2020</time>
-  // {{ new Date(date).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric' })  }}
-
   template: `
     <ul class="meetup-info">
       <li>
