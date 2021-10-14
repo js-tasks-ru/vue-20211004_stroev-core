@@ -29,6 +29,16 @@ export default defineComponent({
   watch: {
     meetupId() {
       this.state = '';
+      this.updateMeetup();
+    },
+  },
+
+  created() {
+    this.updateMeetup();
+  },
+
+  methods: {
+    updateMeetup() {
       fetchMeetupById(this.meetupId)
         .then((meetup) => {
           this.meetup = meetup;
@@ -38,19 +48,7 @@ export default defineComponent({
           this.state = `${error.message}`;
           return error;
         });
-    }
-  },
-
-  created() {
-    fetchMeetupById(this.meetupId)
-      .then((meetup) => {
-        this.meetup = meetup;
-        this.state = 'loaded';
-      })
-      .catch((error) => {
-        this.state = `${error.message}`;
-        return error;
-      });
+    },
   },
 
   template: `
