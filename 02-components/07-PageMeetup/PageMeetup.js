@@ -21,14 +21,15 @@ export default defineComponent({
 
   data() {
     return {
-      meetup: {},
-      state: '',
+      meetup: null,
+      state: 'loading',
+      error: null,
     };
   },
 
   watch: {
     meetupId() {
-      this.state = '';
+      this.state = 'loading';
       this.updateMeetup();
     },
   },
@@ -45,7 +46,9 @@ export default defineComponent({
           this.state = 'loaded';
         })
         .catch((error) => {
-          this.state = `${error.message}`;
+          this.state = `error`;
+          // this.error = `${error.message}`;
+          this.error = error;
           return error;
         });
     },
@@ -56,12 +59,12 @@ export default defineComponent({
       <!-- meetup view -->
       <MeetupView v-if="state == 'loaded'" :meetup="this.meetup"/>
 
-      <ui-container v-if="state == ''">
+      <ui-container v-else-if="state == 'loading'">
         <ui-alert>Загрузка...</ui-alert>
       </ui-container>
 
       <ui-container v-else>
-        <ui-alert>{{ this.state }}</ui-alert>
+        <ui-alert>{{ this.error.message }}</ui-alert>
       </ui-container>
     </div>`,
 });
