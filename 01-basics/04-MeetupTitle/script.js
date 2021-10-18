@@ -26,9 +26,4 @@ createApp({
       fetchMeetupById(val).then((item) => (this.activeTitle = item.title));
     },
   },
-  methods: {
-    changeActiveId(e) {
-      this.activeID = e.target.value;
-    },
-  },
 }).mount('#app');

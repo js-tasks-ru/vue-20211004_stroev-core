@@ -28,9 +28,4 @@ createApp({
       }
     },
   },
-  methods: {
-    selectOperator(e) {
-      this.operation = e.target.value;
-    },
-  },
 }).mount('#app');

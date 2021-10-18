@@ -7,7 +7,7 @@
   <body>
     <div id="app">
       <div>
-        <label v-for="n in 5"><input name="meetup" type="radio" :value="n" @change="changeActiveId"/>{{n}}</label>
+        <label v-for="n in 5"><input name="meetup" type="radio" :value="n" v-model="activeID"/>{{n}}</label>
         
         <hr />
 

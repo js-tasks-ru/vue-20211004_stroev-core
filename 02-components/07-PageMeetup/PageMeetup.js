@@ -47,7 +47,6 @@ export default defineComponent({
         })
         .catch((error) => {
           this.state = `error`;
-          // this.error = `${error.message}`;
           this.error = error;
           return error;
         });
@@ -64,7 +63,7 @@ export default defineComponent({
       </ui-container>
 
       <ui-container v-else>
-        <ui-alert>{{ this.error.message }}</ui-alert>
+        <ui-alert>{{ error.message }}</ui-alert>
       </ui-container>
     </div>`,
 });

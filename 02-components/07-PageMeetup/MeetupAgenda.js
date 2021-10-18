@@ -14,12 +14,6 @@ export default defineComponent({
     },
   },
 
-  data() {
-    return {
-      MeetupAgendaItem,
-    };
-  },
-
   template: `
     <ul class="agenda">
       <li class="agenda__item" v-for="item in agenda" :key="item">
