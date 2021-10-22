@@ -19,11 +19,7 @@ export default {
       type: Object,
     },
   },
-  // data() {
-  //   return{
 
-  //   };
-  // },
   computed: {
     ico() {
       if (this.toast.type == 'success') return 'check-circle';
@@ -31,16 +27,6 @@ export default {
       else return '';
     },
   },
-  // watch: {
-  //   toast() {
-  //     console.log(this.toast);
-  //   },
-  // },
-  // created() {
-  //   this.removeToast();
-  // },
-  // methods: {
-  // },
 };
 </script>
 
