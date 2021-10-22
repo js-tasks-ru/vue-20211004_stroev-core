@@ -48,8 +48,8 @@ export default {
     },
 
     removeToast() {
-      setTimeout((idx) => {
-        this.toastList.splice(idx, 1);
+      setTimeout(() => {
+        this.toastList.splice(0, 1);
       }, 5000);
     },
   },
