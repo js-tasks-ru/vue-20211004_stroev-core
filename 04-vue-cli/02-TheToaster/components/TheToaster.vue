@@ -1,24 +1,58 @@
 <template>
   <div class="toasts">
-    <div class="toast toast_success">
-      <ui-icon class="toast__icon" icon="check-circle" />
-      <span>Success Toast Example</span>
-    </div>
-
-    <div class="toast toast_error">
-      <ui-icon class="toast__icon" icon="alert-circle" />
-      <span>Error Toast Example</span>
+    <div class="toast__list">
+      <template v-for="toast in toastList" :key="toast.id" @remove="removeToast">
+        <UiToast :toast="toast" />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import UiIcon from './UiIcon';
+import UiToast from './UiToast.vue';
 
 export default {
   name: 'TheToaster',
 
-  components: { UiIcon },
+  components: {
+    UiIcon,
+    UiToast,
+  },
+
+  data() {
+    return {
+      toastList: [],
+    };
+  },
+
+  methods: {
+    success(msg) {
+      this.toastList.push({
+        type: 'success',
+        msg,
+        isVisible: true,
+      });
+
+      this.removeToast();
+    },
+
+    error(msg) {
+      this.toastList.push({
+        type: 'error',
+        msg,
+        isVisible: true,
+      });
+
+      this.removeToast();
+    },
+
+    removeToast() {
+      setTimeout((idx) => {
+        this.toastList.splice(idx, 1);
+      }, 5000);
+    },
+  },
 };
 </script>
 
