@@ -1,18 +1,18 @@
 <template>
   <div class="dropdown" :class="{ dropdown_opened: dropdownOpened }">
-    <button type="button" class="dropdown__toggle dropdown__toggle_icon" @click="toggleDropdown">
-      <ui-icon icon="tv" class="dropdown__icon" />
+    <button type="button" class="dropdown__toggle" :class="{ dropdown__toggle_icon: showIco }" @click="toggleDropdown">
+      <ui-icon v-if="showIco" :icon="activeIco" class="dropdown__icon" />
       <span>
-        <!-- Title -->
-        {{ modelValue || title }}
+        {{ activeTitle }}
       </span>
     </button>
 
-    <div class="dropdown__menu" role="listbox">
+    <div v-show="dropdownOpened" class="dropdown__menu" role="listbox">
       <button
         v-for="option in options"
         :key="option.id"
-        class="dropdown__item dropdown__item_icon"
+        class="dropdown__item"
+        :class="{ dropdown__item_icon: showIco }"
         role="option"
         type="button"
         @click="
@@ -20,19 +20,16 @@
           closeList();
         "
       >
-        <ui-icon icon="tv" class="dropdown__icon" />
+        <ui-icon v-if="showIco" :icon="option.icon" class="dropdown__icon" />
         {{ option.text }}
       </button>
-
-      <!-- <button class="dropdown__item dropdown__item_icon" role="option" type="button" @click="selectItem">
-        <ui-icon icon="tv" class="dropdown__icon" />
-        Option 1
-      </button>
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button" @click="selectItem">
-        <ui-icon icon="tv" class="dropdown__icon" />
-        Option 2
-      </button> -->
     </div>
+
+    <select id="hided-select" name="" :value="modelValue" @change="$emit('update:modelValue', $event.target.value)">
+      <option v-for="option in options" :key="option.id" :value="option.value">
+        {{ option.text }}
+      </option>
+    </select>
   </div>
 </template>
 
@@ -65,9 +62,35 @@ export default {
     };
   },
 
-  // updated() {
-  //   console.log(this.modelValue);
-  // },
+  computed: {
+    activeTitle() {
+      if (this.modelValue != undefined) {
+        let item = this.options.find((item) => item.value === this.modelValue);
+        return item.text;
+      } else {
+        return this.title;
+      }
+    },
+    isOptionActive() {
+      if (this.modelValue != undefined) {
+        let item = this.options.find((item) => item.value === this.modelValue);
+        return true;
+      } else {
+        return false;
+      }
+    },
+    showIco() {
+      return this.options.find((item) => item.icon) !== undefined ? true : false;
+    },
+    activeIco() {
+      if (this.modelValue != undefined) {
+        let item = this.options.find((item) => item.value === this.modelValue);
+        return item.icon;
+      } else {
+        return '';
+      }
+    },
+  },
 
   methods: {
     toggleDropdown() {
