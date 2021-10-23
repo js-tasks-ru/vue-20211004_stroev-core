@@ -1,19 +1,37 @@
 <template>
-  <div class="dropdown dropdown_opened">
-    <button type="button" class="dropdown__toggle dropdown__toggle_icon">
+  <div class="dropdown" :class="{ dropdown_opened: dropdownOpened }">
+    <button type="button" class="dropdown__toggle dropdown__toggle_icon" @click="toggleDropdown">
       <ui-icon icon="tv" class="dropdown__icon" />
-      <span>Title</span>
+      <span>
+        <!-- Title -->
+        {{ modelValue || title }}
+      </span>
     </button>
 
     <div class="dropdown__menu" role="listbox">
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
+      <button
+        v-for="option in options"
+        :key="option.id"
+        class="dropdown__item dropdown__item_icon"
+        role="option"
+        type="button"
+        @click="
+          $emit('update:modelValue', option.value);
+          closeList();
+        "
+      >
+        <ui-icon icon="tv" class="dropdown__icon" />
+        {{ option.text }}
+      </button>
+
+      <!-- <button class="dropdown__item dropdown__item_icon" role="option" type="button" @click="selectItem">
         <ui-icon icon="tv" class="dropdown__icon" />
         Option 1
       </button>
-      <button class="dropdown__item dropdown__item_icon" role="option" type="button">
+      <button class="dropdown__item dropdown__item_icon" role="option" type="button" @click="selectItem">
         <ui-icon icon="tv" class="dropdown__icon" />
         Option 2
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
@@ -25,6 +43,40 @@ export default {
   name: 'UiDropdown',
 
   components: { UiIcon },
+
+  props: {
+    options: {
+      type: Array,
+      required: true,
+    },
+    modelValue: {
+      type: String,
+    },
+    title: {
+      type: String,
+    },
+  },
+
+  emits: ['update:modelValue'],
+
+  data() {
+    return {
+      dropdownOpened: false,
+    };
+  },
+
+  // updated() {
+  //   console.log(this.modelValue);
+  // },
+
+  methods: {
+    toggleDropdown() {
+      this.dropdownOpened = !this.dropdownOpened;
+    },
+    closeList() {
+      this.dropdownOpened = false;
+    },
+  },
 };
 </script>
 

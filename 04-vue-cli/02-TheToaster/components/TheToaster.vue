@@ -1,7 +1,7 @@
 <template>
   <div class="toasts">
     <div class="toast__list">
-      <template v-for="toast in toastList" :key="toast.id" @remove="removeToast">
+      <template v-for="toast in toastList" :key="toast.stamp" @remove="removeToast">
         <UiToast :toast="toast" />
       </template>
     </div>
@@ -28,29 +28,33 @@ export default {
 
   methods: {
     success(msg) {
-      this.toastList.push({
+      let toast = {
         type: 'success',
         msg,
-        isVisible: true,
-      });
+        stamp: Date.now(),
+        removeDelay: 5000,
+      };
 
-      this.removeToast();
+      this.toastList.push(toast);
+      this.removeToast(toast);
     },
 
     error(msg) {
-      this.toastList.push({
+      let toast = {
         type: 'error',
         msg,
-        isVisible: true,
-      });
+        stamp: Date.now(),
+        removeDelay: 5000,
+      };
 
-      this.removeToast();
+      this.toastList.push(toast);
+      this.removeToast(toast);
     },
 
-    removeToast() {
+    removeToast(toast) {
       setTimeout(() => {
-        this.toastList.splice(0, 1);
-      }, 5000);
+        this.toastList = this.toastList.filter((item) => item.stamp != toast.stamp);
+      }, toast.removeDelay);
     },
   },
 };
