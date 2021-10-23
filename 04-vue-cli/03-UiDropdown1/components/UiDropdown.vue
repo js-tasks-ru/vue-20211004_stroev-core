@@ -25,7 +25,13 @@
       </button>
     </div>
 
-    <select id="hided-select" name="" :value="modelValue" @change="$emit('update:modelValue', $event.target.value)">
+    <select
+      id="select-hided"
+      class="select-hided"
+      name=""
+      :value="modelValue"
+      @change="$emit('update:modelValue', $event.target.value)"
+    >
       <option v-for="option in options" :key="option.id" :value="option.value">
         {{ option.text }}
       </option>
@@ -217,5 +223,9 @@ export default {
   top: 50%;
   left: 16px;
   transform: translate(0, -50%);
+}
+
+.select-hided {
+  display: none;
 }
 </style>
