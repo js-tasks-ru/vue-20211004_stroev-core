@@ -89,7 +89,7 @@ export default {
   margin-right: 10px;
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
   background: none;
   border: none;
