@@ -71,30 +71,30 @@ export default {
   computed: {
     activeTitle() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
-        return item.text;
+        return this.checkedItem.text;
       } else {
         return this.title;
       }
     },
     isOptionActive() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
         return true;
       } else {
         return false;
       }
     },
     showIco() {
-      return this.options.find((item) => item.icon) !== undefined ? true : false;
+      return this.options.find((item) => item.icon) !== undefined;
     },
     activeIco() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
-        return item.icon;
+        return this.checkedItem.icon;
       } else {
         return '';
       }
+    },
+    checkedItem() {
+      return this.options.find((item) => item.value === this.modelValue);
     },
   },
 
