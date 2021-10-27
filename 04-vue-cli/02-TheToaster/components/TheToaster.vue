@@ -1,7 +1,7 @@
 <template>
   <div class="toasts">
     <div class="toast__list">
-      <UiToast v-for="toast in toastList" :key="toast.stamp" :toast="toast" @removeNow="removeNow" />
+      <UiToast v-for="toast in toastList" :key="toast.id" :toast="toast" @removeNow="removeNow" />
     </div>
   </div>
 </template>
@@ -9,6 +9,8 @@
 <script>
 import UiIcon from './UiIcon';
 import UiToast from './UiToast.vue';
+
+let id = 0;
 
 export default {
   name: 'TheToaster',
@@ -29,7 +31,7 @@ export default {
       let toast = {
         type: 'success',
         msg,
-        stamp: Date.now(),
+        id: id++,
         removeDelay: 5000,
         closeBtn: false,
       };
@@ -42,7 +44,7 @@ export default {
       let toast = {
         type: 'error',
         msg,
-        stamp: Date.now(),
+        id: id++,
         removeDelay: 5000,
         closeBtn: false,
       };
@@ -53,12 +55,12 @@ export default {
 
     removeDelay(toast) {
       setTimeout(() => {
-        this.toastList = this.toastList.filter((item) => item.stamp != toast.stamp);
+        this.toastList = this.toastList.filter((item) => item.id != toast.id);
       }, toast.removeDelay);
     },
 
     removeNow(toast) {
-      this.toastList = this.toastList.filter((item) => item.stamp != toast.stamp);
+      this.toastList = this.toastList.filter((item) => item.id != toast.id);
     },
   },
 };
