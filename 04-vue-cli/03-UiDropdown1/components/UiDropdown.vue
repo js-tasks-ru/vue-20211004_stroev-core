@@ -15,10 +15,7 @@
         :class="{ dropdown__item_icon: showIco }"
         role="option"
         type="button"
-        @click="
-          $emit('update:modelValue', option.value);
-          closeList();
-        "
+        @click="clickItem(option)"
       >
         <ui-icon v-if="showIco" :icon="option.icon" class="dropdown__icon" />
         {{ option.text }}
@@ -71,30 +68,30 @@ export default {
   computed: {
     activeTitle() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
-        return item.text;
+        return this.checkedItem.text;
       } else {
         return this.title;
       }
     },
     isOptionActive() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
         return true;
       } else {
         return false;
       }
     },
     showIco() {
-      return this.options.find((item) => item.icon) !== undefined ? true : false;
+      return this.options.find((item) => item.icon) !== undefined;
     },
     activeIco() {
       if (this.modelValue != undefined) {
-        let item = this.options.find((item) => item.value === this.modelValue);
-        return item.icon;
+        return this.checkedItem.icon;
       } else {
         return '';
       }
+    },
+    checkedItem() {
+      return this.options.find((item) => item.value === this.modelValue);
     },
   },
 
@@ -104,6 +101,10 @@ export default {
     },
     closeList() {
       this.dropdownOpened = false;
+    },
+    clickItem(option) {
+      this.$emit('update:modelValue', option.value);
+      this.closeList();
     },
   },
 };
