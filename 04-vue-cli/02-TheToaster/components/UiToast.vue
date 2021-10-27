@@ -1,8 +1,8 @@
 <template>
-  <div class="toast" :class="`toast_${toast.type}`">
+  <div class="toast" :class="`toast_${type}`">
     <ui-icon class="toast__icon" :icon="ico" />
-    <span>{{ toast.msg }}</span>
-    <button v-if="toast.closeBtn" class="close-btn">X</button>
+    <span>{{ msg }}</span>
+    <button v-if="closeBtn" class="close-btn">X</button>
   </div>
 </template>
 
@@ -16,8 +16,28 @@ export default {
   },
 
   props: {
-    toast: {
-      type: Object,
+    type: {
+      type: String,
+      require: true,
+      validator: function (value) {
+        return ['success', 'error'].indexOf(value) !== -1;
+      },
+    },
+
+    msg: {
+      type: String,
+    },
+
+    id: {
+      type: Number,
+    },
+
+    removeDelay: {
+      type: Number,
+    },
+
+    closeBtn: {
+      type: Boolean,
     },
   },
 
@@ -25,8 +45,8 @@ export default {
 
   computed: {
     ico() {
-      if (this.toast.type == 'success') return 'check-circle';
-      else if (this.toast.type == 'error') return 'alert-circle';
+      if (this.type == 'success') return 'check-circle';
+      else if (this.type == 'error') return 'alert-circle';
       else return '';
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="toasts">
     <div class="toast__list">
-      <UiToast v-for="toast in toastList" :key="toast.id" :toast="toast" @removeNow="removeNow" />
+      <UiToast v-for="toast in toastList" :key="toast.id" v-bind="toast" @removeNow="removeNow" />
     </div>
   </div>
 </template>
