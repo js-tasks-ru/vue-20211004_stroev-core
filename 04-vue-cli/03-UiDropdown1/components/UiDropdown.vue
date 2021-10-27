@@ -15,10 +15,7 @@
         :class="{ dropdown__item_icon: showIco }"
         role="option"
         type="button"
-        @click="
-          $emit('update:modelValue', option.value);
-          closeList();
-        "
+        @click="clickItem(option)"
       >
         <ui-icon v-if="showIco" :icon="option.icon" class="dropdown__icon" />
         {{ option.text }}
@@ -104,6 +101,10 @@ export default {
     },
     closeList() {
       this.dropdownOpened = false;
+    },
+    clickItem(option) {
+      this.$emit('update:modelValue', option.value);
+      this.closeList();
     },
   },
 };
