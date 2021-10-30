@@ -18,7 +18,7 @@ export default {
   props: {
     type: {
       type: String,
-      require: true,
+      required: true,
       validator: function (value) {
         return ['success', 'error'].indexOf(value) !== -1;
       },
