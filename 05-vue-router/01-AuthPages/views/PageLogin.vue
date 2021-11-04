@@ -40,7 +40,7 @@ export default {
     handleSubmit() {
       // Требуется обработать сабмит формы
       if (!('from' in this.$route.query)) {
-        this.$router.push('/');
+        this.$router.push({ name: 'index' });
       } else {
         this.$router.push(`${this.$route.query.from}`);
       }
