@@ -1,10 +1,19 @@
 <template>
-  <a class="link">Link!</a>
+  <component :is="computedTag" class="link"> <slot /> </component>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
   name: 'UiLink',
+  props: ['tag'],
+  computed: {
+    computedTag() {
+      if (typeof this.tag === 'undefined') return RouterLink;
+      return this.tag;
+    },
+  },
 };
 </script>
 
