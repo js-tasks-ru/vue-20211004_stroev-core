@@ -1,5 +1,5 @@
 <template>
-  <component :is="computedTag" class="link"> <slot /> </component>
+  <component :is="tag" class="link"> <slot /> </component>
 </template>
 
 <script>
@@ -7,11 +7,9 @@ import { RouterLink } from 'vue-router';
 
 export default {
   name: 'UiLink',
-  props: ['tag'],
-  computed: {
-    computedTag() {
-      if (typeof this.tag === 'undefined') return RouterLink;
-      return this.tag;
+  props: {
+    tag: {
+      default: RouterLink,
     },
   },
 };
